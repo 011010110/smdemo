@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 如果要使用接口是编程，则namespace需要写为接口的全限定类名，且配置文件中的sql语句的id要与接口中的方法名称相同 -->
+<mapper namespace="org.jiang.mapper.RoleMapper">
+<!-- <cache eviction="FIFO" readOnly="false" flushInterval="60000" size="1024" ></cache> -->
+<!-- 开启echcache二级缓存 -->
+  <cache-ref namespace="org.jiang.mapper.UserMapper"></cache-ref>
+  <select id="getRoleById" resultType="org.jiang.role.entity.Role" >
+    select * from role where  id=#{id,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insertRole" parameterType="org.jiang.role.entity.Role">
+  	insert into role(id,role_code,role_name) values(#{id},#{roleCode},#{roleName})
+  </insert>
+  
+  <select id="getRoleList" resultType="org.jiang.role.entity.Role">
+	select id,role_code as roleCode,role_name as roleName from role  
+  </select>
+  
+  <update id="updateRole" parameterType="org.jiang.role.entity.Role">
+  	update role set role_code=#{roleCode} ,role_name=#{roleName} where id=#{id}
+  </update>
+  
+  <delete id="deleteRoleById" >
+  	delete from role where id=#{id}
+  </delete>
+</mapper>

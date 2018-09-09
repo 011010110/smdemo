@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 如果要使用接口是编程，则namespace需要写为接口的全限定类名，且配置文件中的sql语句的id要与接口中的方法名称相同 -->
+<mapper namespace="org.jiang.mapper.UserMapper">
+<!-- <cache eviction="FIFO" readOnly="false" flushInterval="60000" size="1024" ></cache> -->
+<!-- 开启echcache二级缓存 -->
+  <cache type="org.mybatis.caches.ehcache.EhcacheCache">
+    <property name="timeToIdleSeconds" value="3600"/>
+    <property name="timeToLiveSeconds" value="3600"/>
+    <property name="maxEntriesLocalHeap" value="1000"/>
+    <property name="maxEntriesLocalDisk" value="10000000"/>
+    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+ </cache>
+  <select id="getUserById" resultType="org.jiang.user.entity.User" >
+    select * from user where  id=#{id,jdbcType=VARCHAR}
+  </select>
+  <select id="findUserList" resultType="org.jiang.user.entity.User">
+    select * from user
+  </select>
+  <insert id="insertUser"  parameterType="org.jiang.user.entity.User">
+  	insert into user(id,userName,userPwd) values (#{id},#{userName},#{userPwd})
+  </insert>
+  <update id="updateUser"  parameterType="org.jiang.user.entity.User">
+  	update user set userName=#{userName},userPwd=#{userPwd} where id=#{id}
+  </update>
+  <delete id="deleteUser"  parameterType="String">
+    delete from user where id=#{id} 
+  </delete>
+</mapper>
