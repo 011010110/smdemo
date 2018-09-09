@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BaseServieInterceptor {
 
-	@Before("execution(public String org.jiang.base.BaseService.getUserNameById(String))")
+	@Before("execution(public * org.jiang.user.service.UserService.findUserList())")
 	public void methodCallLog() {
 		System.out.println("===========================================UserService method is called!");
 	}
