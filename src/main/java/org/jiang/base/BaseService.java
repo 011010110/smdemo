@@ -8,15 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class BaseService {
 
 	@Autowired
-	private BaseDao userDao;
+	private BaseDao baseDao;
 	
 	public String getUserNameById(String id) {
-		return userDao.getUserName(id);
+		return baseDao.getUserName(id);
 	}
 	
 	@Transactional
 	public void updateRoleAndUserName(String name) {
-		userDao.updateRoelName(name);
-		userDao.updateUserName(name);
+		baseDao.updateRoelName(name);
+		baseDao.updateUserName(name);
 	}
 }

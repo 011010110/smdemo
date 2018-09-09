@@ -64,7 +64,10 @@ public class BaseTest {
 	 */
 	@Test
 	public void annotationAopTest() {
-		
+		ApplicationContext application = new ClassPathXmlApplicationContext("classpath:spring/application.xml");
+		BaseService BaseService = application.getBean(BaseService.class);
+		String result = BaseService.getUserNameById("001");
+		System.out.println(result);
 	}
 	/**
 	 * 测试mybatis整合
